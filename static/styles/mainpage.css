@@ -1,0 +1,67 @@
+h1 {
+    text-align: center;
+    color:black;
+    font-size:70px;
+    font-weight: bold;
+  }
+
+
+h2{
+    color:black;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+h3{
+    color:black;
+    font-family: Arial;
+    
+}
+
+p{
+    color:black;
+    font-size: 13pt;
+
+}
+
+
+body {
+    background-color:grey;
+    font-family: Arial;
+    background-image: url("/Images/marr_header_photo.jpg");
+
+
+}
+
+.figure{
+    color:black;
+    font-size: 20pt;
+}
+
+.figure-caption{
+    color:black;
+    font-size: 18pt;
+}
+
+
+.jumbotron {
+    background-color:peru;
+    font-size:70px;
+    color:black;
+
+
+}
+
+.buffer { 
+margin-top:20px; 
+margin-bottom:20px; 
+
+}
+
+.weather_box{
+    border-style: solid;
+    color: black;
+    border-width: 1px;
+    border-radius: 5px;
+    padding-left:15px;
+}

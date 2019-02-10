@@ -7,7 +7,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}">
+  <link rel="stylesheet"  href="../static/styles/mainpage.css" />
+  
+</head>
+
 </head>
 
 <body>
@@ -16,23 +19,28 @@
       <h1>Mission to Mars</h1>
       <p><a class="btn btn-primary btn-lg btn btn-warning" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
+
     <div class="row top-buffer">
-      <div class="col-md-12 container-fluid">
+      <div class="col-md-7 container-fluid">
         <h2>Latest Mars News</h2>
+    
         <h3>{{ mars.news_title }}</h3>
-        <p>{{ mars.news_p }}
+        <p>{{ mars.news_paragraph }}
       </div>
     </div>
-    <div class="row buffer">
+
+    <div class="featured_image">
       <div class="col-md-8">
         <h2>Featured Mars Image</h2>
         <img src="{{ mars.featured_image_url }}" alt="Mars" class="img-responsive rounded">
       </div>
+
       <div class="col-md-4">
-        <div class="box buffer">
-          <h3> Mars Weather</h3>
-          <p>{{ mars.mars_weather }}
+        <div class="weather_box">
+          <h3>  Current Weather on Mars</h3>
+          <p> {{  mars.mars_weather }} </p>
         </div>
+        <div></div>
         <div class="box">
           <h3>Mars Facts</h3>
           <div class="table">
@@ -42,6 +50,49 @@
       </div>
     </div>
     <hr>
+    <div class="container">
+      <div class="row">
+          <div class="col-centered col-md-12">
+             
+          <p>&nbsp; 
+          <p>&nbsp;
+          <p>&nbsp;
+            
+          <h1>Mars Hemispheres</h1>
+          </div>
+     
+      </div>
+      <hr>
+      <div class="row buffer">
+          <div class="col-md-6">
+              <div class="figure">
+                  <img src="{{ mars.mars_imgs[0]['img_url'] }}" alt="{{ mars.mars_imgs[0]['title'] }}" class="img-responsive center">
+                  <div class="figure-caption text-center"">{{ mars.mars_imgs[0]['title'] }}</div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="figure">
+                  <img src="{{ mars.mars_imgs[1]['img_url'] }}" alt="{{ mars.mars_imgs[1]['title'] }}" class="img-responsive center">
+                  <div class="figure-caption text-center"">{{ mars.mars_imgs[1]['title'] }}</div>
+              </div>
+          </div>
+      </div>
+      <div class="row buffer">
+          <div class="col-md-6">
+              <div class="figure">
+                  <img src="{{ mars.mars_imgs[2]['img_url'] }}" alt="{{ mars.mars_imgs[2]['title'] }}" class="img-responsive center">
+                  <div class="figure-caption text-center"">{{ mars.mars_imgs[2]['title'] }}</div>
+              </div>
+          </div>
+          <div class="col-md-6">
+                  <div class="figure">
+                      <img src="{{ mars.mars_imgs[3]['img_url'] }}" alt="{{ mars.mars_imgs[3]['title'] }}" class="img-responsive center">
+                      <div class="figure-caption text-center"">{{ mars.mars_imgs[3]['title'] }}</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
   </div>
 </body>
 
