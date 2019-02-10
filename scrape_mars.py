@@ -6,44 +6,30 @@ import pandas as pd
 import time 
 import requests
 
-
 def init_browser():
     executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
     return Browser("chrome", **executable_path, headless=False)
 
-
-
 def scrape():
     browser = init_browser()
-    mars_data = {}
-
-
-    ## NASA MARS NEWS
-
-
+ #_________________________________________________ NASA MARS NEWS ______________________________________________________________________________________________
 
     # Webpage to scrape
-
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
     time.sleep(1)
 
-    # Make request
+     # Scrape page into Soup
     html = browser.html
-    
-    
-    # Create soup object
     soup = bs(html, "html.parser")
 
-    # Collect title and subtitle
+    # Collect title 
     news_title = soup.find('div', class_='content_title').text
+
+    # Collect subtitle
     news_paragraph = soup.find('div', class_='rollover_description_inner').text
 
-
-
-    ## JPL MARS SPACE IMAGES - FEATURED IMAGE
-
-
+ #______________________________________________ JPL MARS SPACE IMAGES - FEATURED IMAGE _________________________________________________________________________
 
     # Open Browser
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
@@ -75,10 +61,7 @@ def scrape():
     # Combine two url into one
     featured_image_url = base_url + image_url
 
-
-
-    ## MARS WEATHER
-
+ #________________________________________________ MARS WEATHER _________________________________________________________________________________________________
 
     weather_url = 'https://twitter.com/marswxreport?lang=en'
     response_w = requests.get(weather_url)
@@ -92,10 +75,7 @@ def scrape():
             mars_weather = mars_weather_tag.text.replace(mars_weather_tag.a.text, '')
             break
 
-
-    ## MARS FACTS
-
-
+  #________________________________________________ MARS FACTS ____________________________________________________________________________________________________
 
     url = 'https://space-facts.com/mars/'
     tables = pd.read_html(url)
@@ -103,39 +83,30 @@ def scrape():
     df.columns=['Feature', 'info']
     df.set_index('Feature', inplace=True)
 
-
     facts_html_table = df.to_html()
-
     
-    # Close the browser after scraping
-    browser.quit()
+    #_______________________________________________ MARS HEMISPHERES_______________________________________________________________________________________________
 
-    # Return results
-    return mars_data
-
-
-
-
-    # MARS HEMISPHERES
-
-
-
-    hemisphere_dict = [
+    mars_imgs = [
         {"title": "Valles Marineris Hemisphere", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/valles_marineris_enhanced.tif/full.jpg"},
         {"title": "Cerberus Hemisphere", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/cerberus_enhanced.tif/full.jpg"},
         {"title": "Schiaparelli Hemisphere", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/schiaparelli_enhanced.tif/full.jpg"},
-        {"title": "Syrtis Major Hemisphere", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/syrtis_major_enhanced.tif/full.jpg"},
-    ]
+        {"title": "Syrtis Major Hemisphere", "img_url": "https://astropedia.astrogeology.usgs.gov/download/Mars/Viking/syrtis_major_enhanced.tif/full.jpg"}
+        ]
 
-
-
-
-    # Save all data to a dictionary
+    #____________________________________________ SAVE ALL DATA IN DICTIONARY ______________________________________________________________________________________
     mars_data = {
         'news_title': news_title ,
         'news_paragraph': news_paragraph,
         'featured_image_url': featured_image_url,
         'mars_weather': mars_weather,
-        'mars_facts_html_table': mars_facts_html_table, 
-        'hemisphere_image_urls': hemisphere_image_urls 
+        'facts_html_table': facts_html_table, 
+        'mars_imgs': mars_imgs
     }
+
+    # Close the browser 
+    browser.quit()
+    # Return results
+    return mars_data
+
+    
